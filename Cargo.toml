@@ -9,6 +9,8 @@ edition = "2021"
 thiserror = "1.0"
 
 [build-dependencies]
+bindgen = "*"
+anyhow = "*"
 pkg-config = "*"
 
 [dev-dependencies]

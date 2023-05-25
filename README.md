@@ -2,6 +2,20 @@
 
 A safe Rust wrapper of [libtracecmd](https://github.com/rostedt/trace-cmd/tree/master/lib/trace-cmd).
 
+## Requirements
+
+To use this crate in your program, you need to install the [libtracecmd](https://github.com/rostedt/trace-cmd) library on your system.
+
+### On Debian/Ubuntu
+
+```bash
+$ sudo apt install libtracefs-dev libtraceevent-dev libtracecmd-dev
+```
+
+### From source code
+
+See [trace-cmd's README](https://github.com/rostedt/trace-cmd#readme).
+
 ## How to run
 
 First, create `trace.dat` by running `trace-cmd`.

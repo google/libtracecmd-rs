@@ -1,5 +1,5 @@
 [package]
-name = "libtracecmd-rs"
+name = "libtracecmd"
 version = "0.1.0"
 edition = "2021"
 

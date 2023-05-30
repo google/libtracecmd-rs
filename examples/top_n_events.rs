@@ -16,9 +16,10 @@ use std::collections::btree_map::Entry;
 use std::collections::BTreeMap;
 
 use argh::FromArgs;
-use libtracecmd_rs::Handler;
-use libtracecmd_rs::Input;
-use libtracecmd_rs::Record;
+use libtracecmd::Event;
+use libtracecmd::Handler;
+use libtracecmd::Input;
+use libtracecmd::Record;
 use once_cell::sync::OnceCell;
 
 static CONFIG: OnceCell<Config> = OnceCell::new();
@@ -37,6 +38,7 @@ struct Config {
     prefix: Option<String>,
 }
 
+// Struct to accumulate statistics.
 #[derive(Default, Debug)]
 struct StatsData {
     cnt: u32,
@@ -44,6 +46,7 @@ struct StatsData {
 }
 
 impl StatsData {
+    // Print top N events stored in `StatsData`.
     fn print_top_n_events(&self) {
         let cfg = CONFIG.get().unwrap();
         let n = cfg.n;
@@ -63,16 +66,23 @@ impl StatsData {
     }
 }
 
-struct RwStats;
+// Struct that we implement `libtracecmd::Handler` for.
+struct TopNStats;
 
-impl Handler for RwStats {
+impl Handler for TopNStats {
     /// Type of data passed to the callback to accumulate data.
-    type DataType = StatsData;
+    type AccumulatedData = StatsData;
 
-    /// Callback that processes each trace event.
-    /// This callback will be passed to `tracecmd_iterate_events` API.
-    fn callback(input: &mut Input, rec: &mut Record, _cpu: i32, data: &mut Self::DataType) -> i32 {
-        let event = input.find_event(rec).unwrap();
+    /// Callback that processes each trace event `rec` and accumulate statistics to `data`.
+    /// This callback is called for each trace event one by one.
+    fn callback(
+        input: &mut Input,
+        rec: &mut Record,
+        _cpu: i32,
+        data: &mut Self::AccumulatedData,
+    ) -> i32 {
+        // Get event
+        let event: Event = input.find_event(rec).unwrap();
         let name = event.name;
 
         let cfg = CONFIG.get().unwrap();
@@ -86,6 +96,7 @@ impl Handler for RwStats {
             name
         };
 
+        // Store `name` in `data`.
         match data.stats.entry(name) {
             Entry::Vacant(o) => {
                 o.insert(1);
@@ -106,6 +117,7 @@ fn main() {
     CONFIG.set(cfg).unwrap();
     let mut input = Input::new(&input).unwrap();
 
-    let stats = RwStats::process(&mut input).unwrap();
+    // Calls `Handler::process` implemented for `TopNStats` to get `stats`, which
+    let stats = TopNStats::process(&mut input).unwrap();
     stats.print_top_n_events();
 }

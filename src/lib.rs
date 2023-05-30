@@ -83,6 +83,7 @@
 
 #[allow(
     clippy::upper_case_acronyms,
+    clippy::useless_transmute,
     non_upper_case_globals,
     non_camel_case_types,
     non_snake_case,
@@ -262,11 +263,10 @@ impl Event {
 ///   }
 /// }
 ///
-/// fn main() {
-///   let mut input: Input = Input::new("trace.dat").unwrap();
-///   let stats: MyData = MyStats::process(&mut input).unwrap();
-///   stats.print_results();
-/// }
+///
+/// let mut input: Input = Input::new("trace.dat").unwrap();
+/// let stats: MyData = MyStats::process(&mut input).unwrap();
+/// stats.print_results();
 /// ```
 ///
 /// You can find sample programs in [`/examples/`](https://github.com/google/libtracecmd-rs/tree/main/examples).
@@ -358,7 +358,6 @@ unsafe extern "C" fn c_callback<T: Handler + ?Sized>(
     );
 
     std::mem::forget(input);
-    std::mem::forget(rec);
     std::mem::forget(data);
 
     res

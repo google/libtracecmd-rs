@@ -1,22 +1,20 @@
-# libtracecmd Rust wrapper
+# libtracecmd-rs
+**A Rust wrapper of [libtracecmd](https://github.com/rostedt/trace-cmd/tree/master/lib/trace-cmd).**
 
-A safe Rust wrapper of [libtracecmd](https://github.com/rostedt/trace-cmd/tree/master/lib/trace-cmd).
+[<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/google/libtracecmd-rs/build.yml?branch=main&style=for-the-badge" height="20">](https://github.com/google/libtracecmd-rs/actions?query=branch%3Amain)
+
+This library is a Rust wrapper of [libtracecmd](https://www.trace-cmd.org/Documentation/libtracecmd/),
+which allows writing programs to analyze Linux's [ftrace](https://docs.kernel.org/trace/ftrace.html)
+data recoreded by [trace-cmd](https://github.com/rostedt/trace-cmd).
 
 ## Requirements
 
-To use this crate in your program, you need to install the [libtracecmd](https://github.com/rostedt/trace-cmd) library on your system.
+To use this crate in your program, you need to install the [libtracecmd](https://github.com/rostedt/trace-cmd) library (>= 1.2.0) on your system.
 
-### On Debian/Ubuntu
+## Example Usage
 
-```bash
-$ sudo apt install libtracefs-dev libtraceevent-dev libtracecmd-dev
-```
-
-### From source code
-
-See [trace-cmd's README](https://github.com/rostedt/trace-cmd#readme).
-
-## How to run
+Let's see how it works with [examples/top_n_events](https://github.com/google/libtracecmd-rs/blob/main/examples/top_n_events.rs),
+which counts how many times each event occurred in a particular period.
 
 First, create `trace.dat` by running `trace-cmd`.
 

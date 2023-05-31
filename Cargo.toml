@@ -15,9 +15,9 @@ readme = "README.md"
 thiserror = "1.0"
 
 [build-dependencies]
-bindgen = "*"
-anyhow = "*"
-pkg-config = "*"
+bindgen = "0.65"
+anyhow = "1.0"
+pkg-config = "0.3"
 
 [dev-dependencies]
 argh = "0.1"

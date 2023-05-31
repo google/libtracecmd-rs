@@ -16,8 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install trace-cmd libraries
-      run: sudo apt update && sudo apt install -y trace-cmd libtracefs-dev libtraceevent-dev libtracecmd-dev
+    - name: Install Dependencies
+      run: ./install-deps
     - name: Build
       run: cargo build --verbose
     - name: Run tests

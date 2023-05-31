@@ -2,7 +2,24 @@
 
 sudo apt update
 sudo apt install build-essential git pkg-config -y
-sudo apt install libtracefs-dev libtraceevent-dev -y
 
+# libtraceevent
+git clone https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/
+cd libtraceevent
+make
+sudo make install
+cd ..
+
+# libtracefs
+git clone https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/
+cd libtracefs
+make
+sudo make install
+cd ..
+
+# libtracecmd
 git clone git://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git
-make -C ./trace-cmd install_libs
+cd trace-cmd
+make
+sudo make install_libs
+cd ..

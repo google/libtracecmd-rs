@@ -2,6 +2,7 @@
 
 **A Rust wrapper of [libtracecmd](https://github.com/rostedt/trace-cmd/tree/master/lib/trace-cmd).**
 
+[<img alt="crates.io" src="https://img.shields.io/crates/v/libtracecmd.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/libtracecmd)
 [<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/google/libtracecmd-rs/build.yml?branch=main&style=for-the-badge" height="20">](https://github.com/google/libtracecmd-rs/actions?query=branch%3Amain)
 
 This library is a Rust wrapper of [libtracecmd](https://www.trace-cmd.org/Documentation/libtracecmd/),

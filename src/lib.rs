@@ -224,6 +224,20 @@ impl Event {
         let msg = unsafe { std::slice::from_raw_parts(seq.buffer as *mut u8, seq.len as usize) };
         println!("fields: {:?}", std::str::from_utf8(msg).unwrap());
     }
+    ///This is a wrapper of
+    /// [tep_record_print_fields](https://www.trace-cmd.org/Documentation/libtraceevent/libtraceevent-field_print.html).
+    pub fn get_fields(&self, rec:&Record) -> String{
+        let mut seq: bindings::trace_seq = Default::default();
+        unsafe{
+            bindings::trace_seq_init(&mut seq);
+            bindings::trace_seq_reset(&mut seq);
+
+            bindings::tep_record_print_fields(&mut seq, rec.0, self.ptr);
+            bindings::trace_seq_terminate(&mut seq);
+        };
+        let msg = unsafe { std::slice::from_raw_parts(seq.buffer as *mut u8, seq.len as usize) };
+        std::str::from_utf8(msg).unwrap().to_string()
+    }
 }
 
 /// A trait to iterate over trace events and process them one by one.

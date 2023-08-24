@@ -215,7 +215,8 @@ impl Event {
     pub fn print_fields(&self, rec: &Record) {
         println!("fields: {:?}", self.get_fields(rec));
     }
-    /// Get each field name follwed by the record's field value according to the field's type.
+
+    /// Gets each field name follwed by the record's field value according to the field's type.
     ///
     /// This is a wrapper of
     /// [tep_record_print_fields](https://www.trace-cmd.org/Documentation/libtraceevent/libtraceevent-field_print.html).

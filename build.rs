@@ -36,8 +36,9 @@ fn package_info() -> Result<(PathBuf, Library)> {
 
 fn main() -> Result<()> {
     let (header_path, library) = package_info()?;
-    println!("cargo:rerun-if-changed={:?}", header_path.as_path());
+    println!("cargo:rerun-if-changed={}", header_path.as_os_str().to_str().unwrap());
     println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-changed=src");
 
     let bindings = bindgen::Builder::default()
         .header(header_path.to_str().unwrap())
